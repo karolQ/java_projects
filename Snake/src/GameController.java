@@ -2,6 +2,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameController implements KeyListener {
+	private boolean isInGame = false;
+	private boolean isOver = false;
 
 	@Override
 	public void keyTyped(KeyEvent e) {

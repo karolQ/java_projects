@@ -1,5 +1,6 @@
 //import java.awt.Canvas;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -9,6 +10,9 @@ public class SnakeCanvas extends JPanel{
 	private final static int SCALE = 13;
 	private final static int GRID_HEIGHT = 30;
 	private final static int GRID_WIDTH = 30;
+	
+	private SnakeObj snake;
+	private Fruit fruit;
 	
 	public static int getScale(){
 		return SCALE;
@@ -32,6 +36,8 @@ public class SnakeCanvas extends JPanel{
 	}
 	
 	public void paint(Graphics g){
+		g.setColor(Color.WHITE);
+		
 		drawGrid(g);
 		
 	}
