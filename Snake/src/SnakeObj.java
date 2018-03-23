@@ -2,22 +2,26 @@ import java.awt.Point;
 import java.util.LinkedList;
 
 public class SnakeObj {
-	private LinkedList<Point> points;
+	private LinkedList<Point> body;
 	private Point head;
 	private Point tail;
+	private Direction direction;
 	
 	
 	
 	public SnakeObj(){
-		//snake = new LinkedList<Point>();
-		snake.add(new Point(0,2));
-		snake.add(new Point(0,1));
-		snake.add(new Point(0,0));
-		Direction.setDirection(0);
+		
+	}
+	public Point getHead(){
+		return body.getFirst();
 	}
 	
-	public void move(){
-		
+	public void move(Direction direction){
+		Point curHead = snake.getHead();
+		switch(direction){
+		case UP: 
+			
+		}
 	}
 	
 	public void eatFruit(){

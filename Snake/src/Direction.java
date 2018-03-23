@@ -1,18 +1,18 @@
 
-public class Direction {
-	private static final int NO_DIRECTON = 0;
-	private static final int UP = 1;
-	private static final int DOWN = 2;
-	private static final int LEFT = 3;
-	private static final int RIGHT = 4;
+public enum Direction {
+	UP(0),
+	DOWN(1),
+	LEFT(2),
+	RIGHT(4);
+		
+	private int directionCode;
 	
-	private static int direction;
-	
-	public static void setDirection(int directionCode){
-		direction = directionCode;
+	Direction(int directionCode){
+		this.directionCode = directionCode;
 	}
-	
-	public int getDirection(){
-		return direction;
+		
+	public int directionCode(){
+		return directionCode;
 	}
+
 }
