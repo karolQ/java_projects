@@ -10,10 +10,11 @@ public class SnakeCanvas extends JPanel{
 	private final static int SCALE = 13;
 	private final static int GRID_HEIGHT = 30;
 	private final static int GRID_WIDTH = 30;
+	private final static boolean[][] status = new boolean[SCALE*GRID_WIDTH][SCALE*GRID_HEIGHT];
 	
 	private SnakeObj snake;
 	private Fruit fruit;
-	
+	/*
 	public static int getScale(){
 		return SCALE;
 	}
@@ -23,6 +24,12 @@ public class SnakeCanvas extends JPanel{
 	public static int gridHeight(){
 		return GRID_HEIGHT;
 	}
+	*/
+	
+	public SnakeCanvas(){
+		snake = new SnakeObj();
+		fruit = new Fruit(40 ,40);
+	}
 	
 	public void drawGrid(Graphics g){
 		g.drawRect(10, 10, SCALE*GRID_WIDTH, SCALE*GRID_HEIGHT);
@@ -31,9 +38,7 @@ public class SnakeCanvas extends JPanel{
 		for(int j = 10; j < SCALE*GRID_WIDTH; j += SCALE)
 			g.drawLine(10, j, SCALE*GRID_WIDTH, j);
 	}
-	public SnakeCanvas(){
-		
-	}
+	
 	
 	public void paint(Graphics g){
 		g.setColor(Color.WHITE);
