@@ -1,54 +1,68 @@
-//import java.awt.Canvas;
-
-import java.awt.Color;
-import java.awt.Graphics;
-
+import java.awt.Point;
 import javax.swing.JPanel;
 
 public class SnakeCanvas extends JPanel{
 	
-	private final static int SCALE = 13;
-	private final static int GRID_HEIGHT = 30;
-	private final static int GRID_WIDTH = 30;
-	private final static boolean[][] status = new boolean[SCALE*GRID_WIDTH][SCALE*GRID_HEIGHT];
+	private final int GRID_HEIGHT = 30;
+	private final int GRID_WIDTH = 30;
+	private final boolean[][] status = new boolean[GRID_WIDTH][GRID_HEIGHT];
 	
 	private SnakeObj snake;
 	private Fruit fruit;
-	/*
-	public static int getScale(){
-		return SCALE;
-	}
-	public static int gridWidth(){
-		return GRID_WIDTH;
-	}
-	public static int gridHeight(){
-		return GRID_HEIGHT;
-	}
-	*/
 	
 	public SnakeCanvas(){
+		defaultSnake();
+		fruit.createFruit();
+	}
+	
+	public SnakeObj defaultSnake(){
 		snake = new SnakeObj();
-		fruit = new Fruit(40 ,40);
+		int x = GRID_WIDTH/2;
+		int y = GRID_HEIGHT/2;
+		for(int i = 0; i < 4; i++){
+			x += 1;
+			snake.addTail(new Point(x, y));
+			status[x][y] = true;
+		}
+		return snake;
 	}
 	
-	public void drawGrid(Graphics g){
-		g.drawRect(10, 10, SCALE*GRID_WIDTH, SCALE*GRID_HEIGHT);
-		for(int i = 10; i < SCALE*GRID_WIDTH; i+=SCALE)
-			g.drawLine(i, 10, i, SCALE*GRID_HEIGHT);
-		for(int j = 10; j < SCALE*GRID_WIDTH; j += SCALE)
-			g.drawLine(10, j, SCALE*GRID_WIDTH, j);
+	public void changeDirection(Direction d){
+		if(snake.getDirection().equals(d))
+			return;
+		snake.setDirection(d);
 	}
 	
+	public void nextStep(){
+		Point head = snake.getHead();
+		if(checkCollision(head)){
+			Point tail = snake.move(snake.getDirection());
+			if(snake.getHead().equals(fruit))
+				snake.addTail(tail);
+			fruit.createFruit(GRID_WIDTH/2, GRID_HEIGHT);
+		}
+	}
 	
-	public void paint(Graphics g){
-		g.setColor(Color.WHITE);
+	private boolean checkCollision(Point point){
+		int x = point.x;
+		int y = point.y;
 		
-		drawGrid(g);
-		
+		if(x < 0 || x > (GRID_WIDTH-1))
+			return false;
+		if(y < 0 || y > (GRID_HEIGHT-1))
+			return false;
+		if(snake.containsSelf(point))
+			return false;
+		return true;
 	}
 	
-	public void update(Graphics g){
-		
+	public SnakeObj getSnake(){
+		return snake;
 	}
-
+	
+	public Fruit getFruit(){
+		return fruit;
+	}
+	
+	
 }

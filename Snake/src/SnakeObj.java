@@ -4,17 +4,13 @@ import java.util.LinkedList;
 public class SnakeObj {
 	private LinkedList<Point> body;
 	private Point curHead;
-	//private Point tail;
+	private Point tail;
 	private Direction direction;
-	private Fruit fruit;
+	//private Fruit fruit;
 	
-	//default way of creating a snake
+	//
 	public SnakeObj(){
-		body = new LinkedList<Point>();
-		body.add(new Point(0,2));
-		body.add(new Point(0,1));
-		body.add(new Point(0,0));
-		direction = Direction.NONE;
+		
 	}
 	
 	//return current head point of the snake
@@ -27,9 +23,13 @@ public class SnakeObj {
 		return this.direction;
 	}
 	
+	public void setDirection(Direction dir){
+		direction = dir;
+	}
+	
 	//movement of the snake, including the eat fruit situation -- adding the newHead no matter what,
 	//and if newHead is the fruit, no need to remove the tail, otherwise, remove the tail.
-	public void move(Direction dir){
+	public Point move(Direction dir){
 		curHead = this.getHead();
 		Point newHead = null;
 		switch(dir){
@@ -50,13 +50,14 @@ public class SnakeObj {
 		}
 		
 		body.addFirst(newHead);
-		
-		if(newHead.equals(fruit)){
-			fruit.createFruit();
-			return;
-		}
-		
-		body.removeLast();
+		return body.pollLast();
 	}
-		
+	
+	public void addTail(Point p){
+		body.addLast(p);
+	}
+	
+	public boolean containsSelf(Point p){
+		return body.contains(p);
+	}
 }
