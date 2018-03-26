@@ -3,8 +3,6 @@ import java.util.LinkedList;
 
 public class SnakeObj {
 	private LinkedList<Point> body;
-	private Point curHead;
-	private Point tail;
 	private Direction direction;
 	//private Fruit fruit;
 	
@@ -27,10 +25,9 @@ public class SnakeObj {
 		direction = dir;
 	}
 	
-	//movement of the snake, including the eat fruit situation -- adding the newHead no matter what,
-	//and if newHead is the fruit, no need to remove the tail, otherwise, remove the tail.
+	// move
 	public Point move(Direction dir){
-		curHead = this.getHead();
+		Point curHead = this.getHead();
 		Point newHead = null;
 		switch(dir){
 		case UP: 
@@ -53,11 +50,18 @@ public class SnakeObj {
 		return body.pollLast();
 	}
 	
-	public void addTail(Point p){
+	// adding point to the tail
+	public Point addTail(Point p){
 		body.addLast(p);
+		return p;
 	}
 	
+	// check if the point is a part of the snake
 	public boolean containsSelf(Point p){
 		return body.contains(p);
+	}
+	
+	public LinkedList<Point> getSnake(){
+		return body;
 	}
 }
