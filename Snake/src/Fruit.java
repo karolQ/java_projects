@@ -6,6 +6,10 @@ import java.util.Random;
 public class Fruit {
 	private Point fruit;
 	
+	public Fruit(){
+		
+	}
+	
 	// constructor
 	public Fruit(int x, int y){
 		this.fruit.x = x;
@@ -29,6 +33,8 @@ public class Fruit {
 		int randomY = rand.nextInt(250);
 		Point randomPoint = new Point(randomX, randomY);
 		return randomPoint;
+		
+		
 	}
 	
 	// creating fruits with two seeds

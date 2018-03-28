@@ -3,16 +3,19 @@ import javax.swing.JPanel;
 
 public class SnakeCanvas extends JPanel{
 	
-	private final int GRID_HEIGHT = 30;
-	private final int GRID_WIDTH = 30;
+	private final int gridHeight;
+	private final int gridWidth;
 	
 	// record the points on board if has been taken(as part of the snake or walls for future element to be added
-	private final boolean[][] status = new boolean[GRID_WIDTH][GRID_HEIGHT];
+	private final boolean[][] status;
+	private SnakeObj snake = new SnakeObj();
+	private Fruit fruit = new Fruit();
 	
-	private SnakeObj snake;
-	private Fruit fruit;
-	
-	public SnakeCanvas(){
+	public SnakeCanvas(int w, int h){
+		this.gridWidth = w;
+		this.gridHeight = h;
+		status = new boolean[w][h];
+		
 		if(snake.getSnake() == null){
 			defaultSnake();
 			fruit.createFruit();
@@ -20,9 +23,10 @@ public class SnakeCanvas extends JPanel{
 	}
 	
 	public SnakeObj defaultSnake(){
+		//snake.clear();
 		snake = new SnakeObj();
-		int x = GRID_WIDTH/2;
-		int y = GRID_HEIGHT/2;
+		int x = gridWidth/2;
+		int y = gridHeight/2;
 		// default snake with length of 3 points, and set the status of the points in snake as true -- the points have been taken
 		for(int i = 0; i < 4; i++){
 			x += 1;
@@ -41,7 +45,7 @@ public class SnakeCanvas extends JPanel{
 	// 1. normal move
 	// 2. eat fruit
 	// 3. collision situation
-	public void nextStep(){
+	public boolean nextStep(){
 		Point head = snake.getHead();
 		// 3. checking collision
 		if(checkCollision(head)){
@@ -54,17 +58,19 @@ public class SnakeCanvas extends JPanel{
 				snake.addTail(tail);
 				status[tail.x][tail.y] = true;
 			}
-			fruit.createFruit(GRID_WIDTH/2, GRID_HEIGHT);
+			fruit.createFruit(gridWidth/2, gridHeight);
+			return true;
 		}
+		return false;
 	}
 	
 	public boolean checkCollision(Point point){
 		int x = point.x;
 		int y = point.y;
 		
-		if(x < 0 || x > (GRID_WIDTH-1))
+		if(x < 0 || x > (gridWidth-1))
 			return false;
-		if(y < 0 || y > (GRID_HEIGHT-1))
+		if(y < 0 || y > (gridHeight-1))
 			return false;
 		if(snake.containsSelf(point))
 			return false;

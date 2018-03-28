@@ -2,13 +2,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GameWindow extends JPanel{
 	private final static int SCALE = 13;
-	private SnakeCanvas view;
+	private final SnakeCanvas view;
 	private JPanel window;
-	private GameController controller;
+	private GameController gc;
 	
 	public GameWindow(SnakeCanvas view){
 		this.view = view;
@@ -18,14 +19,7 @@ public class GameWindow extends JPanel{
 		return window;
 	}
 	
-	public void paint(){
-		view = new SnakeCanvas();
-	}
 	
-	public void update(){
-		
-	}
-	/*
 	public void init(){
 		window = new JPanel(){
 			  @Override
@@ -37,7 +31,13 @@ public class GameWindow extends JPanel{
 			  }
 		};
 	}
-	*/
+	
+	public void draw() {
+        Graphics graphics = window .getGraphics();
+        drawSnake(graphics, view.getSnake());
+        drawFruit(graphics, view.getFruit());
+        window.repaint();
+    }
 	
 	
 	public void drawBg(Graphics g){
@@ -63,9 +63,14 @@ public class GameWindow extends JPanel{
 		}
 	}
 	
-	public void drawFruit(Graphics g, Fruit fruit){
+	public void drawFruit(Graphics g, Fruit point){
 		g.setColor(Color.RED);
-		g.fillOval(fruit.getFruit().x*SCALE, fruit.getFruit().y*SCALE, SCALE, SCALE);
+		g.fillOval(point.getFruit().x*SCALE, point.getFruit().y*SCALE, SCALE, SCALE);
 	}
+	
+	public void gameOver() {
+        JOptionPane.showMessageDialog(null, "Game Over", "Game Over!", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0);
+    }
 }
 

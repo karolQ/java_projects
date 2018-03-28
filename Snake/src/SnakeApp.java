@@ -7,13 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class SnakeApp implements Runnable{
+	private SnakeCanvas gameView;
 	public void run(){
-		SnakeCanvas gameView = new SnakeCanvas();
+		gameView = new SnakeCanvas(800, 600);
 		JFrame frame= new JFrame("Snake");
 		GameWindow gameWindow = new GameWindow(gameView);
 		gameWindow.init();
-		int width = 800;
-		int height = 600;
+		int width = 800 * 13;
+		int height = 600 * 13;
 		gameWindow.getWindow().setPreferredSize(new Dimension(width,height));
 		Container pane = frame.getContentPane();
 	    pane.add(gameWindow.getWindow(), BorderLayout.CENTER);

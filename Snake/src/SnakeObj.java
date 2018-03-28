@@ -8,7 +8,6 @@ public class SnakeObj {
 	
 	//
 	public SnakeObj(){
-		
 	}
 	
 	//return current head point of the snake
@@ -51,9 +50,11 @@ public class SnakeObj {
 	}
 	
 	// adding point to the tail
-	public Point addTail(Point p){
+	public void addTail(Point p){
+		if(body == null)
+			body = new LinkedList<Point>();
 		body.addLast(p);
-		return p;
+		//return p;
 	}
 	
 	// check if the point is a part of the snake
@@ -63,5 +64,9 @@ public class SnakeObj {
 	
 	public LinkedList<Point> getSnake(){
 		return body;
+	}
+	
+	public void clear(){
+		body.clear();
 	}
 }

@@ -9,7 +9,7 @@ public class GameController implements KeyListener, Runnable {
 	
 	public GameController(SnakeCanvas snakeCanvas){
 		this.canvas = snakeCanvas;
-		isInGame = true;
+		//isInGame = true;
 	}
 
 	
@@ -61,9 +61,6 @@ public class GameController implements KeyListener, Runnable {
 	@Override
 	public void run() {
 		while(isInGame){
-			canvas.getSnake().move(canvas.getSnake().getDirection());
-			//Draw(globalGraphics);
-			canvas.repaint();
 			
 			try{
 				Thread.currentThread();
@@ -72,6 +69,12 @@ public class GameController implements KeyListener, Runnable {
 			catch(Exception e){
 				e.printStackTrace();
 			}
+			
+			boolean next = canvas.nextStep();
+            if (next == false) {
+                gw.gameOver();
+            }
+            gw.draw();
 		}
 		
 	}
