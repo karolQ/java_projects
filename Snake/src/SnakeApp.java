@@ -2,30 +2,35 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class SnakeApp implements Runnable{
 	private SnakeCanvas gameView;
+	private GameController gc;
+	private GameWindow gameWindow;
+	private GameListener gl;
+	
 	public void run(){
-		gameView = new SnakeCanvas(800, 600);
+		this.gameView = new SnakeCanvas(40, 30);
 		JFrame frame= new JFrame("Snake");
-		GameWindow gameWindow = new GameWindow(gameView);
-		gameWindow.init();
-		int width = 800 * 13;
-		int height = 600 * 13;
-		gameWindow.getWindow().setPreferredSize(new Dimension(width,height));
-		Container pane = frame.getContentPane();
-	    pane.add(gameWindow.getWindow(), BorderLayout.CENTER);
-	        
-	    frame.pack();
+		this.gl = new GameListener(this.gameView);
+		this.gameWindow = new GameWindow(this.gameView, this.gl);
+		this.gc = new GameController(this.gameView, this.gameWindow);
+
+		this.gameWindow.init();
+		
+		this.gameWindow.getWindow().setPreferredSize(new Dimension(800,600));
 	    
+	    frame.getContentPane().add(this.gameWindow.getWindow());
+	    frame.pack();
 	    frame.setResizable(false);
 	    frame.setVisible(true);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    GameController gc = new GameController(gameView);
-	    new Thread().start();
+	    new Thread(gc).start();
 	}
 
 	public static void main(String[] args) {

@@ -6,8 +6,8 @@ import java.util.Random;
 public class Fruit {
 	private Point fruit;
 	
-	public Fruit(){
-		
+	public Fruit(Point p){
+		this.fruit = p;
 	}
 	
 	// constructor
@@ -17,9 +17,9 @@ public class Fruit {
 	}
 	
 	// for creating fruits
-	public void setFruit(int x, int y){
-		fruit.x = x;
-		fruit.y = y;
+	public void setFruit(Point p){
+		fruit = p;
+//		fruit.y = y;
 	}
 	
 	public Point getFruit(){
@@ -29,7 +29,7 @@ public class Fruit {
 	//default way of creating fruit
 	public Point createFruit(){
 		Random rand = new Random();
-		int randomX = rand.nextInt(250);
+		int randomX = rand.nextInt(10);
 		int randomY = rand.nextInt(250);
 		Point randomPoint = new Point(randomX, randomY);
 		return randomPoint;
@@ -43,6 +43,7 @@ public class Fruit {
 		int randomX = rand.nextInt(x);
 		int randomY = rand.nextInt(y);
 		Point randomPoint = new Point(randomX, randomY);
+		System.out.println(randomPoint);
 		return randomPoint;
 	}
 	

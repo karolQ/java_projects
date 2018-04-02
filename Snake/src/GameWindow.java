@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -9,31 +11,38 @@ public class GameWindow extends JPanel{
 	private final static int SCALE = 13;
 	private final SnakeCanvas view;
 	private JPanel window;
-	private GameController gc;
+	private GameListener gl;
 	
-	public GameWindow(SnakeCanvas view){
+	public GameWindow(SnakeCanvas view, GameListener gl){
 		this.view = view;
+		this.gl = gl;
 	}
 	
 	public JPanel getWindow(){
-		return window;
+		return this.window;
 	}
 	
-	
 	public void init(){
-		window = new JPanel(){
+		this.window = new JPanel(){
 			  @Override
 			  public void paintComponent(Graphics graphics) {
+				  super.paintComponent(graphics);
 				  drawBg(graphics);
 				  drawGrid(graphics);
 				  drawSnake(graphics, view.getSnake());
 				  drawFruit(graphics, view.getFruit());
 			  }
 		};
+		
+		this.window.addKeyListener(this.gl);
+		
+		this.window.setFocusable(true);
+		this.window.requestFocusInWindow();
+		
 	}
 	
 	public void draw() {
-        Graphics graphics = window .getGraphics();
+        Graphics graphics = window.getGraphics();
         drawSnake(graphics, view.getSnake());
         drawFruit(graphics, view.getFruit());
         window.repaint();
@@ -41,17 +50,18 @@ public class GameWindow extends JPanel{
 	
 	
 	public void drawBg(Graphics g){
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, 0, SCALE*view.getWidht(), SCALE*view.getHeight());
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, SCALE*view.getWidht()+20, SCALE*view.getHeight()+20);
 	}
 	
 	public void drawGrid(Graphics g){
+		g.setColor(Color.DARK_GRAY);
 		//draw grids' vertical lines
-		for(int x = SCALE; x < SCALE*view.getWidht(); x+=SCALE){
+		for(int x = SCALE; x < SCALE*view.getWidht()+10; x+=SCALE){
 			g.drawLine(x, 0, x, SCALE*view.getHeight());
 		}
 		
-		for(int y = SCALE; y < SCALE*view.getHeight(); y += SCALE){
+		for(int y = SCALE; y < SCALE*view.getHeight()+10; y += SCALE){
 			g.drawLine(0, y, SCALE*view.getWidht(), y);
 		}
 	}

@@ -7,7 +7,9 @@ public class SnakeObj {
 	//private Fruit fruit;
 	
 	//
-	public SnakeObj(){
+	public SnakeObj(LinkedList<Point> snake){
+		body = snake;
+		//direction = Direction.RIGHT;
 	}
 	
 	//return current head point of the snake
@@ -51,8 +53,6 @@ public class SnakeObj {
 	
 	// adding point to the tail
 	public void addTail(Point p){
-		if(body == null)
-			body = new LinkedList<Point>();
 		body.addLast(p);
 		//return p;
 	}
