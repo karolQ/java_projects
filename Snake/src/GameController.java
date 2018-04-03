@@ -63,7 +63,6 @@ public class GameController implements Runnable {
 	@Override
 	public void run() {
 		while(true){
-			
 			try{
 				Thread.currentThread();
 				Thread.sleep(150);
@@ -73,8 +72,8 @@ public class GameController implements Runnable {
 			}
 			
 			boolean next = canvas.nextStep();
-//			System.out.println(next);
             if (next == false) {
+            	System.out.println(next);
                 gw.gameOver();
             }
             gw.draw();

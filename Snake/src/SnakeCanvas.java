@@ -16,7 +16,7 @@ public class SnakeCanvas extends JPanel{
 	public SnakeCanvas(int w, int h){
 		this.gridWidth = w;
 		this.gridHeight = h;
-		status = new boolean[w][h];
+		status = new boolean[w+1][h+1];
 		defaultSnake();
 		fruit.createFruit();
 	}
@@ -56,23 +56,17 @@ public class SnakeCanvas extends JPanel{
 		if(checkCollision(head)){
 			Point tail = snake.move(snake.getDirection());
 			Point newHead = snake.getHead();
-			//System.out.println(newHead);
-			status[newHead.x][newHead.y] = true;
-			status[tail.x][tail.y] = false;
+			System.out.println(newHead);
+//			status[newHead.x][newHead.y] = true;
+//			status[tail.x][tail.y] = false;
 			
 			// 2. checking if hit fruit
-			System.out.println(newHead);
-			
 			if(newHead.equals(fruit.getFruit())){
 				snake.addTail(tail);
-				status[tail.x][tail.y] = true;
+//				status[tail.x][tail.y] = true;
 				Point newFruit = fruit.createFruit(gridWidth/2, gridHeight);
-				
-				System.out.println(newFruit);
-				System.out.println("!!!!!!!!!!!!!");
-
 				fruit.setFruit(newFruit);
-				System.out.println(fruit);
+//				System.out.println(fruit);
 			}
 			return true;
 		}
@@ -87,8 +81,10 @@ public class SnakeCanvas extends JPanel{
 			return false;
 		if(y < 0 || y > (gridHeight-1))
 			return false;
-//		if(snake.containsSelf(point))
-//			return false;
+		LinkedList<Point> snakeBody = new LinkedList<>(snake.getSnake());
+		snakeBody.pollFirst();
+		if(snakeBody.contains(point))
+			return false;
 		return true;
 	}
 	

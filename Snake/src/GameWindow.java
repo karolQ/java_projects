@@ -37,7 +37,7 @@ public class GameWindow extends JPanel{
 		this.window.addKeyListener(this.gl);
 		
 		this.window.setFocusable(true);
-		this.window.requestFocusInWindow();
+		//this.window.requestFocusInWindow();
 		
 	}
 	

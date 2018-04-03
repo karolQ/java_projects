@@ -23,7 +23,7 @@ public class SnakeApp implements Runnable{
 
 		this.gameWindow.init();
 		
-		this.gameWindow.getWindow().setPreferredSize(new Dimension(800,600));
+		this.gameWindow.getWindow().setPreferredSize(new Dimension(700,500));
 	    
 	    frame.getContentPane().add(this.gameWindow.getWindow());
 	    frame.pack();
@@ -31,9 +31,10 @@ public class SnakeApp implements Runnable{
 	    frame.setVisible(true);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    new Thread(gc).start();
+
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		SwingUtilities.invokeLater(new SnakeApp());
 	}
 
