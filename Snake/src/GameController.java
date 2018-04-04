@@ -62,6 +62,7 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
+		System.out.println("controller");
 		while(true){
 			try{
 				Thread.currentThread();

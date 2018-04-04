@@ -47,16 +47,23 @@ public class SnakeObj {
 			break;
 		}
 		
-		body.addFirst(newHead);
-		return body.pollLast();
+//		body.addFirst(newHead);
+		body.pollLast();
+		return newHead;
 	}
 	
+	public void addHead(Point p){
+		this.body.addFirst(p);
+	}
 	// adding point to the tail
 	public void addTail(Point p){
 		body.addLast(p);
 		//return p;
 	}
 	
+	public Point getTail(){
+		return this.body.peekLast();
+	}
 	// check if the point is a part of the snake
 	public boolean containsSelf(Point p){
 		return body.contains(p);
