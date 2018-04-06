@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,6 +17,9 @@ public class GameWindow extends JPanel{
 	private JPanel window;
 	private GameListener gl;
 	private int score;
+	private String highScore = "";
+	private GameController gc;
+	
 	
 	public GameWindow(SnakeCanvas view){
 		this.view = view;
@@ -24,17 +30,29 @@ public class GameWindow extends JPanel{
 		return this.window;
 	}
 	
+	
 	public void init(){
+		
 		this.window = new JPanel(){
 			  @Override
 			  public void paintComponent(Graphics graphics) {
 				  super.paintComponent(graphics);
 				  drawBg(graphics);
-				  score = view.getScore();
-				  drawScore(graphics,score);
-				  drawGrid(graphics);
-				  drawSnake(graphics, view.getSnake());
-				  drawFruit(graphics, view.getFruit());
+				  
+				  if(view.isInMenu){
+					  score = view.getScore();
+					  if(highScore.equals("")){
+						highScore = getHighScore();
+					  }
+					  drawScore(graphics,score);
+					  drawWelcome(graphics);
+				  }
+				  else{
+					  drawGrid(graphics);
+					  drawScore(graphics,score);
+					  drawSnake(graphics, view.getSnake());
+					  drawFruit(graphics, view.getFruit());
+				  }
 			  }
 		};
 		gl = new GameListener(this.view);
@@ -44,13 +62,17 @@ public class GameWindow extends JPanel{
 		
 	}
 	
+	public void drawWelcome(Graphics g){
+		g.drawString("Please press ENTER to start ...", 200, 400);
+	}
 	
-	public void draw() {
-        Graphics graphics = window.getGraphics();
-        drawSnake(graphics, view.getSnake());
-        drawFruit(graphics, view.getFruit());
-        window.repaint();
-    }
+//	public void draw() {
+//		System.out.println("init");
+//        Graphics graphics = this.window.getGraphics();
+//        drawSnake(graphics, view.getSnake());
+//        drawFruit(graphics, view.getFruit());
+//        window.repaint();
+//    }
 	
 	
 	public void drawBg(Graphics g){
@@ -88,10 +110,36 @@ public class GameWindow extends JPanel{
 	public void drawScore(Graphics g, int score){
 		g.setFont(new Font("Comic Sans MS", Font.BOLD, 25));
 		g.setColor(Color.BLACK);
-		g.drawString(String.valueOf(score), 30, 60);
+		g.drawString(String.valueOf(view.getScore()), 30, 80);
 //		g.setColor(Color.GRAY);
 		for(int i = 85; i < 93; i+= 2){
 			g.drawLine(10, i, SCALE*view.getWidht()+10, i);
+		}
+		System.out.println(highScore);
+//		if(highScore.equals("")){
+//			highScore = getHighScore();
+//		  }
+		g.drawString(highScore, 30, 45);
+	}
+	
+	public String getHighScore(){
+		FileReader readFile = null;
+		BufferedReader reader = null;
+		try{
+			readFile = new FileReader("highscore.dat");
+			reader = new BufferedReader(readFile);
+			return reader.readLine();
+		}
+		catch(Exception e){
+			return "John Doe:0";
+		}
+		finally{
+			try{
+				if(reader != null)
+					reader.close();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
 		}
 	}
 	

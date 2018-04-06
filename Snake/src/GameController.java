@@ -1,16 +1,23 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
 
 public class GameController implements Runnable {
-	private boolean isInGame = false;
-	private boolean isOver = false;
+
 	private SnakeCanvas canvas;
 	private GameWindow gw;
+	private String hScore;
 	
 	public GameController(SnakeCanvas snakeCanvas, GameWindow gameWin){
 		
 		this.canvas = snakeCanvas;
 		this.gw = gameWin;
+		hScore = gw.getHighScore();
 		//isInGame = true;
 	}
 
@@ -59,6 +66,43 @@ public class GameController implements Runnable {
 //		// TODO Auto-generated method stub
 //		
 //	}
+	
+	public void checkScore(){
+		if(hScore == "")
+			return;
+		if(canvas.getScore() > Integer.parseInt(hScore.split(":")[1])){
+			String name = JOptionPane.showInputDialog("You set a new highscore. Please enter your name: ");
+			hScore = name + ":" + canvas.getScore();
+			
+			File scoreFile = new File("highscore.dat");
+			if(!scoreFile.exists())
+				try {
+					scoreFile.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			FileWriter writeFile = null;
+			BufferedWriter writer = null;
+			try{
+				writeFile = new FileWriter(scoreFile);
+				writer = new BufferedWriter(writeFile);
+				writer.write(gw.getHighScore());
+				
+			}
+			catch(Exception e){
+				
+			}
+			finally{
+				try{
+					if(writer != null)
+						writer.close();
+				}catch(Exception e){
+					
+				}
+			}
+		}
+	}
 
 	@Override
 	public void run() {
@@ -66,19 +110,28 @@ public class GameController implements Runnable {
 		while(true){
 			try{
 				Thread.currentThread();
-				Thread.sleep(150);
+				Thread.sleep(130);
 			}
 			catch(Exception e){
 				e.printStackTrace();
 			}
+//			System.out.print(canvas.isInGame);
+			if(canvas.isInGame){
+				canvas.nextStep();
+//				System.out.println("in game");
+				
+//				gw.draw();
+				
+				gw.getWindow().repaint();
+			}
 			
-			boolean next = canvas.nextStep();
-            if (next == false) {
-            	System.out.println(next);
-                gw.gameOver();
+//			boolean next = canvas.nextStep();
+			else if (canvas.isOver) {
+//            	System.out.println(next);
+            	checkScore();
+//                gw.gameOver();
+            	canvas.defaultSnake();
             }
-            gw.draw();
 		}
-		
 	}
 }

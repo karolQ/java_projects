@@ -1,4 +1,7 @@
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.swing.JPanel;
@@ -8,6 +11,13 @@ public class SnakeCanvas extends JPanel{
 	private final int gridHeight;
 	private final int gridWidth;
 	private int score = 0;
+	private String highScore ="";
+	public GameWindow gw;
+	
+	public boolean isInGame = false;
+	public boolean isOver = false;
+	public boolean isInMenu = true;
+	
 	
 	// record the points on board if has been taken(as part of the snake or walls for future element to be added
 	private final boolean[][] status;
@@ -23,8 +33,8 @@ public class SnakeCanvas extends JPanel{
 	}
 	
 	public SnakeObj defaultSnake(){
-		//snake.clear();
-		//snake = new SnakeObj(new LinkedList<Point>());
+		snake.clear();
+//		snake = new SnakeObj(new LinkedList<Point>());
 		int x = gridWidth/2;
 		int y = gridHeight/2;
 		// default snake with length of 3 points, and set the status of the points in snake as true -- the points have been taken
@@ -85,12 +95,20 @@ public class SnakeCanvas extends JPanel{
 		int x = point.x;
 		int y = point.y;
 		
-		if(x < 0 || x > (gridWidth-1))
+		if(x < 0 || x > (gridWidth-1)){
+			isOver = true;
 			return false;
+		}
 		if(y < 0 || y > (gridHeight-1))
+		{
+			isOver = true;
 			return false;
+		}
 		if(snake.containsSelf(point))
+		{
+			isOver = true;
 			return false;
+		}
 		return true;
 	}
 	
@@ -109,4 +127,5 @@ public class SnakeCanvas extends JPanel{
 	public int getHeight(){
 		return gridHeight;
 	}
+	
 }

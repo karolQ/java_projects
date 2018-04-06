@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 public class GameListener implements KeyListener{
 	private SnakeCanvas canvas;
-	
+	public GameController gc;
 	public GameListener(SnakeCanvas can){
 		this.canvas = can;
 	}
@@ -18,8 +18,9 @@ public class GameListener implements KeyListener{
 			int code = e.getKeyCode();
 			switch(code){
 				case KeyEvent.VK_UP:
-					if(canvas.getSnake().getDirection() != Direction.DOWN)
+					if(canvas.getSnake().getDirection() != Direction.DOWN){
 						canvas.changeDirection(Direction.UP);
+					}
 					break;
 				case KeyEvent.VK_DOWN:
 					if(canvas.getSnake().getDirection() != Direction.UP)
@@ -32,6 +33,13 @@ public class GameListener implements KeyListener{
 				case KeyEvent.VK_RIGHT:
 					if(canvas.getSnake().getDirection() != Direction.LEFT)
 						canvas.changeDirection(Direction.RIGHT);
+					break;
+				case KeyEvent.VK_ENTER:
+					{
+						canvas.isInGame = true;
+						canvas.isInMenu = false;
+						canvas.isOver = false;
+					}
 					break;
 				default:
 					break;

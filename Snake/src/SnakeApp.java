@@ -18,8 +18,9 @@ public class SnakeApp implements Runnable{
 	private GameListener gl;
 	
 	public void run(){
-		this.gameView = new SnakeCanvas(40, 35);
 		JFrame frame= new JFrame("Snake");
+		
+		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		double screenWidth = d.getWidth();
@@ -31,7 +32,7 @@ public class SnakeApp implements Runnable{
 		frame.setLayout(new FlowLayout());
 		
 		
-		
+		this.gameView = new SnakeCanvas(40, 35);
 		this.gl = new GameListener(this.gameView);
 		this.gameWindow = new GameWindow(this.gameView);
 		this.gc = new GameController(this.gameView, this.gameWindow);
