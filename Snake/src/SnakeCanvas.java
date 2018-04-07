@@ -35,6 +35,7 @@ public class SnakeCanvas extends JPanel{
 	public SnakeObj defaultSnake(){
 		snake.clear();
 //		snake = new SnakeObj(new LinkedList<Point>());
+		score = 0;
 		int x = gridWidth/2;
 		int y = gridHeight/2;
 		// default snake with length of 3 points, and set the status of the points in snake as true -- the points have been taken
@@ -88,6 +89,9 @@ public class SnakeCanvas extends JPanel{
 			}
 			return true;
 		}
+		isInGame = false;
+		isOver = true;
+		isInMenu = false;
 		return false;
 	}
 	
@@ -96,17 +100,23 @@ public class SnakeCanvas extends JPanel{
 		int y = point.y;
 		
 		if(x < 0 || x > (gridWidth-1)){
-			isOver = true;
+//			isInGame = false;
+//			isOver = true;
+//			isInMenu = false;
 			return false;
 		}
 		if(y < 0 || y > (gridHeight-1))
 		{
-			isOver = true;
+//			isInGame = false;
+//			isOver = true;
+//			isInMenu = false;
 			return false;
 		}
 		if(snake.containsSelf(point))
 		{
-			isOver = true;
+//			isInGame = false;
+//			isOver = true;
+//			isInMenu = false;
 			return false;
 		}
 		return true;

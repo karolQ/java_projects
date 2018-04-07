@@ -37,17 +37,16 @@ public class GameWindow extends JPanel{
 			  @Override
 			  public void paintComponent(Graphics graphics) {
 				  super.paintComponent(graphics);
-				  drawBg(graphics);
+				  
 				  
 				  if(view.isInMenu){
+					  drawBg(graphics);
 					  score = view.getScore();
-					  if(highScore.equals("")){
-						highScore = getHighScore();
-					  }
 					  drawScore(graphics,score);
 					  drawWelcome(graphics);
 				  }
 				  else{
+					  drawBg(graphics);
 					  drawGrid(graphics);
 					  drawScore(graphics,score);
 					  drawSnake(graphics, view.getSnake());
@@ -63,7 +62,7 @@ public class GameWindow extends JPanel{
 	}
 	
 	public void drawWelcome(Graphics g){
-		g.drawString("Please press ENTER to start ...", 200, 400);
+		g.drawString("Please press ENTER to start ...", 90, 330);
 	}
 	
 //	public void draw() {
@@ -116,9 +115,9 @@ public class GameWindow extends JPanel{
 			g.drawLine(10, i, SCALE*view.getWidht()+10, i);
 		}
 		System.out.println(highScore);
-//		if(highScore.equals("")){
-//			highScore = getHighScore();
-//		  }
+		if(highScore.equals("")){
+			highScore = getHighScore();
+		  }
 		g.drawString(highScore, 30, 45);
 	}
 	
@@ -132,6 +131,28 @@ public class GameWindow extends JPanel{
 		}
 		catch(Exception e){
 			return "John Doe:0";
+		}
+		finally{
+			try{
+				if(reader != null)
+					reader.close();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void refreshHighScore(){
+		FileReader readFile = null;
+		BufferedReader reader = null;
+		try{
+			readFile = new FileReader("highscore.dat");
+			reader = new BufferedReader(readFile);
+			this.highScore = reader.readLine();
+		}
+		catch(Exception e){
+			reader = new BufferedReader(readFile);
+			this.highScore = "John Doe:0";
 		}
 		finally{
 			try{

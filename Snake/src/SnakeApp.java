@@ -25,10 +25,10 @@ public class SnakeApp implements Runnable{
 		Dimension d = tk.getScreenSize();
 		double screenWidth = d.getWidth();
 		double screenHeight = d.getHeight();
-		int posWidth = (int)((screenWidth-700)/2);
-		int posHeight = (int)((screenHeight-600)/2);
+		int posWidth = (int)((screenWidth-540)/2);
+		int posHeight = (int)((screenHeight-575)/2);
 
-		frame.setBounds(posWidth, posHeight, 700, 600);
+		frame.setBounds(posWidth, posHeight, 540, 575);
 		frame.setLayout(new FlowLayout());
 		
 		
@@ -36,19 +36,21 @@ public class SnakeApp implements Runnable{
 		this.gl = new GameListener(this.gameView);
 		this.gameWindow = new GameWindow(this.gameView);
 		this.gc = new GameController(this.gameView, this.gameWindow);
-
+		new Thread(gc).start();
 		this.gameWindow.init();
 		
-		this.gameWindow.getWindow().setPreferredSize(new Dimension(700,600));
+		this.gameWindow.getWindow().setPreferredSize(new Dimension(540,575));
 	    
 	    frame.getContentPane().add(this.gameWindow.getWindow());
 //	    JTextField tf= new JTextField();
 //		frame.add(tf);
 	    frame.pack();
 	    frame.setResizable(false);
-	    frame.setVisible(true);
+	    
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    new Thread(gc).start();
+	    
+	    frame.setVisible(true);
+	   
 	    System.out.println("gc thread");
 
 	}

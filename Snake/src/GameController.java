@@ -18,6 +18,7 @@ public class GameController implements Runnable {
 		this.canvas = snakeCanvas;
 		this.gw = gameWin;
 		hScore = gw.getHighScore();
+		System.out.println(hScore);
 		//isInGame = true;
 	}
 
@@ -68,8 +69,8 @@ public class GameController implements Runnable {
 //	}
 	
 	public void checkScore(){
-		if(hScore == "")
-			return;
+//		if(hScore == "")
+//			return;
 		if(canvas.getScore() > Integer.parseInt(hScore.split(":")[1])){
 			String name = JOptionPane.showInputDialog("You set a new highscore. Please enter your name: ");
 			hScore = name + ":" + canvas.getScore();
@@ -87,7 +88,8 @@ public class GameController implements Runnable {
 			try{
 				writeFile = new FileWriter(scoreFile);
 				writer = new BufferedWriter(writeFile);
-				writer.write(gw.getHighScore());
+				writer.write(hScore);
+				
 				
 			}
 			catch(Exception e){
@@ -122,16 +124,21 @@ public class GameController implements Runnable {
 				
 //				gw.draw();
 				
-				gw.getWindow().repaint();
+				
 			}
 			
 //			boolean next = canvas.nextStep();
 			else if (canvas.isOver) {
 //            	System.out.println(next);
             	checkScore();
-//                gw.gameOver();
+            	
+            	canvas.isInGame = false;
+            	canvas.isInMenu = true;
+            	canvas.isOver = false;
             	canvas.defaultSnake();
+            	gw.refreshHighScore();
             }
+			gw.getWindow().repaint();
 		}
 	}
 }
