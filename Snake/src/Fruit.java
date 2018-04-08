@@ -1,6 +1,4 @@
 import java.awt.Point;
-import java.util.*;
-import java.io.*;
 import java.util.Random;
 
 public class Fruit {
@@ -19,7 +17,6 @@ public class Fruit {
 	// for creating fruits
 	public void setFruit(Point p){
 		fruit = p;
-//		fruit.y = y;
 	}
 	
 	public Point getFruit(){
@@ -34,7 +31,6 @@ public class Fruit {
 		Point randomPoint = new Point(randomX, randomY);
 		return randomPoint;
 		
-		
 	}
 	
 	// creating fruits with two seeds
@@ -43,7 +39,6 @@ public class Fruit {
 		int randomX = rand.nextInt(x);
 		int randomY = rand.nextInt(y);
 		Point randomPoint = new Point(randomX, randomY);
-		System.out.println(randomPoint);
 		return randomPoint;
 	}
 	

@@ -1,5 +1,3 @@
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,58 +17,10 @@ public class GameController implements Runnable {
 		this.gw = gameWin;
 		hScore = gw.getHighScore();
 		System.out.println(hScore);
-		//isInGame = true;
 	}
-
 	
-//	public void gameStatus(){
-//		if(!canvas.checkCollision(canvas.getSnake().getHead())){
-//			isOver = true;
-//			isInGame = false;
-//		}
-//	}
-//	@Override
-//	public void keyTyped(KeyEvent e) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void keyPressed(KeyEvent e) {
-//		int code = e.getKeyCode();
-//		isInGame = true;
-//		isOver = false;
-//		switch(code){
-//			case KeyEvent.VK_UP:
-//				if(canvas.getSnake().getDirection() != Direction.DOWN)
-//					canvas.changeDirection(Direction.UP);
-//				break;
-//			case KeyEvent.VK_DOWN:
-//				if(canvas.getSnake().getDirection() != Direction.UP)
-//					canvas.changeDirection(Direction.DOWN);
-//				break;
-//			case KeyEvent.VK_LEFT:
-//				if(canvas.getSnake().getDirection() != Direction.RIGHT)
-//					canvas.changeDirection(Direction.LEFT);
-//				break;
-//			case KeyEvent.VK_RIGHT:
-//				if(canvas.getSnake().getDirection() != Direction.LEFT)
-//					canvas.changeDirection(Direction.RIGHT);
-//				break;
-//			default:
-//				break;
-//		}
-//	}
-//
-//	@Override
-//	public void keyReleased(KeyEvent e) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-	
+	// compare current score and high score in record
 	public void checkScore(){
-//		if(hScore == "")
-//			return;
 		if(canvas.getScore() > Integer.parseInt(hScore.split(":")[1])){
 			String name = JOptionPane.showInputDialog("You set a new highscore. Please enter your name: ");
 			hScore = name + ":" + canvas.getScore();
@@ -108,7 +58,7 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("controller");
+		System.out.println("game controller is running");
 		while(true){
 			try{
 				Thread.currentThread();
@@ -117,19 +67,14 @@ public class GameController implements Runnable {
 			catch(Exception e){
 				e.printStackTrace();
 			}
-//			System.out.print(canvas.isInGame);
+			
 			if(canvas.isInGame){
+//				System.out.print("In game");
 				canvas.nextStep();
-//				System.out.println("in game");
-				
-//				gw.draw();
-				
-				
 			}
 			
-//			boolean next = canvas.nextStep();
 			else if (canvas.isOver) {
-//            	System.out.println(next);
+            	System.out.println("Game over");
             	checkScore();
             	
             	canvas.isInGame = false;

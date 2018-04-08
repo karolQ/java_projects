@@ -1,7 +1,4 @@
 import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.swing.JPanel;
@@ -11,13 +8,12 @@ public class SnakeCanvas extends JPanel{
 	private final int gridHeight;
 	private final int gridWidth;
 	private int score = 0;
-	private String highScore ="";
 	public GameWindow gw;
 	
+	public boolean isInMenu = true;
 	public boolean isInGame = false;
 	public boolean isOver = false;
-	public boolean isInMenu = true;
-	
+	public boolean isPause = false;
 	
 	// record the points on board if has been taken(as part of the snake or walls for future element to be added
 	private final boolean[][] status;
@@ -32,9 +28,9 @@ public class SnakeCanvas extends JPanel{
 		fruit.createFruit();
 	}
 	
+	// initialize the snake
 	public SnakeObj defaultSnake(){
 		snake.clear();
-//		snake = new SnakeObj(new LinkedList<Point>());
 		score = 0;
 		int x = gridWidth/2;
 		int y = gridHeight/2;
@@ -51,8 +47,6 @@ public class SnakeCanvas extends JPanel{
 	public void changeDirection(Direction d){
 		if(snake.getDirection().equals(d))
 		{
-//			System.out.println(snake.getDirection());
-//			System.out.println(d);	
 			return;
 		}
 		
@@ -68,14 +62,12 @@ public class SnakeCanvas extends JPanel{
 	// 3. collision situation
 	public boolean nextStep(){
 		Point tail = snake.getTail();
-//		Point head = snake.getHead();
 		Point newHead = new Point(snake.move(snake.getDirection()));
 		// 3. checking collision
 		if(checkCollision(newHead)){
 			snake.addHead(newHead);
-//			Point tail = snake.move(snake.getDirection());
-//			Point newHead = snake.getHead();
 			status[newHead.x][newHead.y] = true;
+			snake.deleteTail(tail);
 			status[tail.x][tail.y] = false;
 			
 			// 2. checking if hit fruit
@@ -85,13 +77,15 @@ public class SnakeCanvas extends JPanel{
 				status[tail.x][tail.y] = true;
 				Point newFruit = fruit.createFruit(gridWidth/2, gridHeight);
 				fruit.setFruit(newFruit);
-//				System.out.println(fruit);
+				System.out.println("new fruite: " + newFruit);
 			}
 			return true;
 		}
+		
 		isInGame = false;
 		isOver = true;
 		isInMenu = false;
+		isPause = false;
 		return false;
 	}
 	
@@ -100,23 +94,13 @@ public class SnakeCanvas extends JPanel{
 		int y = point.y;
 		
 		if(x < 0 || x > (gridWidth-1)){
-//			isInGame = false;
-//			isOver = true;
-//			isInMenu = false;
 			return false;
 		}
-		if(y < 0 || y > (gridHeight-1))
-		{
-//			isInGame = false;
-//			isOver = true;
-//			isInMenu = false;
+		if(y < 0 || y > (gridHeight-1)){
 			return false;
 		}
 		if(snake.containsSelf(point))
 		{
-//			isInGame = false;
-//			isOver = true;
-//			isInMenu = false;
 			return false;
 		}
 		return true;

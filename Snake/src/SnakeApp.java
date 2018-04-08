@@ -1,14 +1,8 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class SnakeApp implements Runnable{
@@ -19,8 +13,6 @@ public class SnakeApp implements Runnable{
 	
 	public void run(){
 		JFrame frame= new JFrame("Snake");
-		
-		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		double screenWidth = d.getWidth();
@@ -29,8 +21,6 @@ public class SnakeApp implements Runnable{
 		int posHeight = (int)((screenHeight-575)/2);
 
 		frame.setBounds(posWidth, posHeight, 540, 575);
-		frame.setLayout(new FlowLayout());
-		
 		
 		this.gameView = new SnakeCanvas(40, 35);
 		this.gl = new GameListener(this.gameView);
@@ -42,16 +32,13 @@ public class SnakeApp implements Runnable{
 		this.gameWindow.getWindow().setPreferredSize(new Dimension(540,575));
 	    
 	    frame.getContentPane().add(this.gameWindow.getWindow());
-//	    JTextField tf= new JTextField();
-//		frame.add(tf);
 	    frame.pack();
 	    frame.setResizable(false);
 	    
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    
 	    frame.setVisible(true);
 	   
-	    System.out.println("gc thread");
+	    System.out.println("SankeApp is running");
 
 	}
 

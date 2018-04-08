@@ -4,12 +4,9 @@ import java.util.LinkedList;
 public class SnakeObj {
 	private LinkedList<Point> body;
 	private Direction direction;
-	//private Fruit fruit;
-	
-	//
+
 	public SnakeObj(LinkedList<Point> snake){
 		body = snake;
-		//direction = Direction.RIGHT;
 	}
 	
 	//return current head point of the snake
@@ -22,6 +19,7 @@ public class SnakeObj {
 		return this.direction;
 	}
 	
+	// change direction
 	public void setDirection(Direction dir){
 		direction = dir;
 	}
@@ -46,19 +44,22 @@ public class SnakeObj {
 		default:
 			break;
 		}
-		
-//		body.addFirst(newHead);
-		body.pollLast();
 		return newHead;
 	}
 	
+	// add a new point to the front as the new head of the snake
 	public void addHead(Point p){
 		this.body.addFirst(p);
 	}
+	
 	// adding point to the tail
 	public void addTail(Point p){
 		body.addLast(p);
-		//return p;
+	}
+	
+	// remove the last point of the snake body
+	public void deleteTail(Point p){
+		body.removeLast();
 	}
 	
 	public Point getTail(){

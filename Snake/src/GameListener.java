@@ -34,11 +34,21 @@ public class GameListener implements KeyListener{
 					if(canvas.getSnake().getDirection() != Direction.LEFT)
 						canvas.changeDirection(Direction.RIGHT);
 					break;
+					
+				// start/continue game 
 				case KeyEvent.VK_ENTER:
 					{
+						canvas.isPause = false;
 						canvas.isInGame = true;
 						canvas.isInMenu = false;
 						canvas.isOver = false;
+					}
+					break;
+				// pause game
+				case KeyEvent.VK_ESCAPE:
+					if(canvas.isInGame){
+						canvas.isPause = true;
+						canvas.isInGame = false;
 					}
 					break;
 				default:
