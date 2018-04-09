@@ -8,10 +8,10 @@ This project is the classic Snake Game that reconstructed in Java.
 ------------
 
 ### Content
-- [Game Rules](#Game-Rules)
-- [Classes Designs](#Classes-Designs)
-- [Demo](#Demo)
-- [References](#References)
+- [Game Rules](#game-rules)
+- [Classes Designs](#classes-designs)
+- [Demo](#demo)
+- [References](#references)
 
 ------------
 ### Game Rules
