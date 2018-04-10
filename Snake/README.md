@@ -30,10 +30,13 @@ This project is the classic Snake Game that reconstructed in Java.
 
 ### Classes Design
 
+![Design](https://raw.githubusercontent.com/karolQ/java_projects/master/Snake/snake.jpg)
+
 ------------
 
 ### Demo
 
+![Demo](https://raw.githubusercontent.com/karolQ/java_projects/master/Snake/Untitled.gif)
 ------------
 
 ### References
