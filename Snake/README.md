@@ -37,6 +37,7 @@ This project is the classic Snake Game that reconstructed in Java.
 ### Demo
 
 <img src="https://raw.githubusercontent.com/karolQ/java_projects/master/Snake/Demo.gif" width="450" height="" />
+
 ------------
 
 ### References
