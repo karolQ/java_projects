@@ -9,7 +9,7 @@ This project is the classic Snake Game that reconstructed in Java.
 
 ### Content
 - [Game Rules](#game-rules)
-- [Classes Designs](#classes-design)
+- [Classes Design](#classes-design)
 - [Demo](#demo)
 - [References](#references)
 
@@ -29,6 +29,10 @@ This project is the classic Snake Game that reconstructed in Java.
 ------------
 
 ### Classes Design
+
+------------
+
+### Demo
 
 ------------
 

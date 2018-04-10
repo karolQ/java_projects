@@ -63,7 +63,8 @@ public class GameWindow extends JPanel{
 	}
 	
 	public void drawBg(Graphics g){
-		g.setColor(new Color(153, 203, 152));;
+//		g.setColor(new Color(153, 203, 152));
+		g.setColor(new Color(152, 251, 152));
 		g.fillRect(10, 10, SCALE*view.getWidht(), SCALE*view.getHeight()+100);
 	}
 	
